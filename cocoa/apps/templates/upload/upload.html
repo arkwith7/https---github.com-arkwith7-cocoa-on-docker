@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} User Profile {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+                  <div class="card-header">
+                      <h4 class="card-title">Upload File</h4>
+                  </div>
+                  <div class="card-body">
+                    <form action="{% url "upload" %}" method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <input type="file" name="image_file">
+                      <input type="submit" value="submit" />
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+  {% if image_url %}
+    <p>File uploaded at: <a href="{{ image_url }}">{{ image_url }}</a></p>
+  {% endif %}
+
+  {% endblock content %}
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}{% endblock javascripts %}
