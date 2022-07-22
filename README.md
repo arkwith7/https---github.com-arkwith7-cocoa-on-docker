@@ -32,3 +32,25 @@ Uses gunicorn + nginx.
     ```
 
     Test it out at [http://localhost:1337](http://localhost:1337). No mounted folders. To apply changes, the image must be re-built.
+
+### Github 초기화 등록
+
+1. 로컬 저장소의 .git 디렉토리 삭제
+2. 잘못된 파일 삭제 or 수정 후 로컬 저장소에서 다시 git init 수행 → 초기화!
+3. 초기화에 등록될 파일 추가 
+```
+git add .
+```
+4. 초기화에 등록될 파일 커밋
+```
+git commit -m "커밋 메시지"
+```
+5. 초기화 시킬 원격 저장소 추가
+```
+git remote add origin "url"
+```
+6. 현재 상태를 원격 저장소에 적용
+```
+git push --force --set-upstream origin master
+```
+(이를 통해 git pull 없이 강제로 병합)
