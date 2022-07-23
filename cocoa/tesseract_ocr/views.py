@@ -19,8 +19,8 @@ def index(request):
     if image_form.is_valid():
         image = image_form.save()
         image.execute_and_save_ocr()
-        # print("ImageFileModel.id:[{}]".format(image.id))
-        # print("ImageFileModel.image:[{}]".format(image.image))
+        print("ImageFileModel.id:[{}]".format(image.id))
+        print("ImageFileModel.image:[{}]".format(image.image))
         # dictionary for initial data with  
         # field names as keys 
         context ={} 
