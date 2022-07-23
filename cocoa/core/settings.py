@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     'tesseract_ocr', 
-    'apps.service1',
-    'apps.service_upload',
     'apps.home'  # Enable the inner home (home)
 ]
 

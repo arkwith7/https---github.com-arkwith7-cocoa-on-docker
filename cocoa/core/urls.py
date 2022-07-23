@@ -5,7 +5,6 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.contrib import admin
 from django.urls import path, include  # add this
-from django.conf.urls import url
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -16,8 +15,6 @@ urlpatterns = [
     path("", include("apps.authentication.urls")), # Auth routes - login / register
 
     # ADD NEW Routes HERE
-    path("service1/", include("apps.service1.urls")),
-    path("upload/", include("apps.service_upload.urls")),
     path("ocr/", include('tesseract_ocr.urls')),
 
     # Leave `Home.Urls` as last the last line

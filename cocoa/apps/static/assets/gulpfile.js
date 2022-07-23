@@ -22,7 +22,7 @@ const paths = {
     src: {
         base: './',
         css: './css',
-        scss: './sass',
+        scss: './scss',
         node_modules: './node_modules/',
         vendor: './vendor'
     }
@@ -30,7 +30,7 @@ const paths = {
 
 // Compile SCSS
 gulp.task('scss', function() {
-    return gulp.src([paths.src.scss + '/light-bootstrap-dashboard.scss'])
+    return gulp.src([paths.src.scss + '/style.scss'])
         .pipe(wait(500))
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
@@ -45,7 +45,7 @@ gulp.task('scss', function() {
 // Minify CSS
 gulp.task('minify:css', function() {
     return gulp.src([
-            paths.src.css + '/light-bootstrap-dashboard.css'
+            paths.src.css + '/style.css'
         ])
         .pipe(cleanCss())
         .pipe(rename(function(path) {
