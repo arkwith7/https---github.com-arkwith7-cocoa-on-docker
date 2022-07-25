@@ -1,49 +1,84 @@
-{% extends "base.html" %}
+{% extends "layout/base.html" %}
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %} Home {% endblock %}
+{% block title %} OCR Result {% endblock %}
 
-{% block extrahead %} {% endblock %}
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
 
-{% block extrastyle %} {% endblock %}
+<link rel="stylesheet" href="{{ ASSETS_ROOT }}/css/tesseract_ocr/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+{% endblock stylesheets %}
 
 {% block content %}
-<div class="col-lg-7 banner-txt text-center">
-    <h3>Arkwith OCR Result</h3>
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                <div class="page-header">
+                    <div class="page-block">
+                        <div class="row align-items-center">
+                            <div class="col-md-12">
+                                <div class="page-header-title">
+                                    <h5 class="m-b-10">OCR 결과</h5>
+                                </div>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="#!">OCR</a></li>
+                                    <li class="breadcrumb-item"><a href="#!">Tesseract</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                            </div>
+                            <!-- [ tooltip ] start -->
+                            <div class="col-md-6 col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>OCR 대상 이미지팔일</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <img src="/static/media/{{data.image}}" alt="Uploaded Image" width="600px" style="margin: auto; border-radius: 10px; margin-bottom: 8px" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>OCR 결과</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <textarea class="form-control" id="exampleTextarea" rows="20">{{data.ocr_text}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- [ tooltip ] end -->
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div style="padding-left: 20px; padding-right: 20px">
-    <img src="/static/media/{{data.image}}" alt="Uploaded Image" width="300px"
-        style="margin: auto; border-radius: 10px; margin-bottom: 8px" />
-    <h3 style="
-                            color: tomato;
-                            font-size: 30px;
-                            font-family: 'Poppins', sans-serif;
-                            text-align: left;
-                            padding-bottom: 20px;
-                        ">
-        {{data.ocr_text}}
-    </h3>
-    <!--
-    <a href="{% url 'gettext' %}" style="
-                            display: inline-block;
-                            text-align: center;
-                            border-radius: 10px;
-                            text-decoration: none;
-                            height: 30px;
-                            width: 100px;
-                            font-family: 'Poppins', sans-serif;
-                            background: rgb(255, 85, 0);
-                            background: linear-gradient(
-                                90deg,
-                                rgba(255, 85, 0, 1) 2%,
-                                rgba(237, 109, 20, 1) 67%,
-                                rgba(246, 128, 0, 1) 87%
-                            );
-                            border: 0px;
-                            color: black;
-                        ">Download</a>
-    -->
-</div>
-{% endblock %}
-{% block extrascript %} {% endblock %}
+<!-- [ Main Content ] end -->
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

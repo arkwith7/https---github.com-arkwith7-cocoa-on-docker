@@ -46,17 +46,17 @@
 	</div>
 	<!-- [ Pre-loader ] End -->
 
-	{% include 'includes/sidebar.html' %}
+	{% include 'layout/sidebar.html' %}
 
-	{% include 'includes/navigation.html' %}	
+	{% include 'layout/navigation.html' %}	
 
-	{% include 'includes/header-user-list.html' %}
+	{% include 'layout/header-user-list.html' %}
 
-	{% include 'includes/header-chat.html' %}
+	{% include 'layout/header-chat.html' %}
 
 	{% block content %}{% endblock content %}
 
-	{% include 'includes/scripts.html' %}
+	{% include 'layout/scripts.html' %}
     <!-- Optional JavaScript -->
     <script src="{{ ASSETS_ROOT }}/js/tesseract_ocr/jquery-3.3.1.min.js"></script>
     <script src="{{ ASSETS_ROOT }}/js/tesseract_ocr/bootstrap.min.js"></script>
@@ -69,8 +69,8 @@
 
     <!-- Specific Page JS goes HERE  -->
     {% block javascripts %}{% endblock javascripts %}
-
+    <!--
 	<script src="{{ ASSETS_ROOT }}/js/menu-setting.js"></script>
-	
+	-->
 </body>
 </html>

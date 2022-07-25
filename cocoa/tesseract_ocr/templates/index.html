@@ -46,8 +46,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>파일 업로드</h5>
-                                        <span class="d-block m-t-5">OCR을 처리할 <code>텍스트 이미지 파일</code>을 업로드 하세요
-                                            element</span>
+                                        <span class="d-block m-t-5">OCR을 처리할 <code>텍스트 이미지 파일</code>을 업로드 하세요.</span>
                                     </div>
                                     <div class="card-block table-border-style">
                                         <div id="image_form">
@@ -74,7 +73,7 @@
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>OCR 처리 파일 목록</h5>
+                                        <h5>OCR 결과 파일 목록</h5>
                                         <span class="d-block m-t-5"></span>
                                     </div>
                                     <div class="card-block table-border-style">
@@ -97,9 +96,9 @@
                                                             {{image.id}}</th>
                                                         <td>
                                                             <div class="clickable_img"
-                                                                onclick="show_img_details('/mediafiles/{{image.image}}')">
+                                                                onclick="show_img_details('/static/media/{{image.image}}')">
                                                                 <img class="img-fluid img-thumbnail "
-                                                                    src="/mediafiles/{{image.image}}"
+                                                                    src="/static/media/{{image.image}}"
                                                                     alt="{{image.image}}" width="100" />
                                                             </div>
                                                         </td>
