@@ -56,12 +56,12 @@ def detail_view(request, id):
     context ={}   
     # add the dictionary during initialization
     context["data"] = OCRText.objects.get(id = id)
-    # print("context[data]:[{}]".format(context["data"]))
-    # print("context[data.image]:[{}]".format(context["data"].image))
-    # print("context[data.image.id]:[{}]".format(context["data"].image.id))
-    # print("context[data.image.image]:[{}]".format(context["data"].image.image))
-    # print("context[data.lang]:[{}]".format(context["data"].lang))
-    # print("context[data.text]:[{}]".format(context["data"].text))
+    print("context[data]:[{}]".format(context["data"]))
+    print("context[data.image]:[{}]".format(context["data"].image))
+    print("context[data.image.id]:[{}]".format(context["data"].image.id))
+    print("context[data.image.image]:[{}]".format(context["data"].image.image))
+    print("context[data.lang]:[{}]".format(context["data"].lang))
+    print("context[data.text]:[{}]".format(context["data"].text))
     # save a text file
     # filename = os.getcwd()+"/sample.txt"
     # filename = os.path.abspath(os.path.dirname(__file__))+"/sample.txt"

@@ -20,12 +20,15 @@ RUN apt -yqq install software-properties-common
 
 RUN add-apt-repository ppa:alex-p/tesseract-ocr-devel -y
 
-RUN apt -yqq install build-essential && \
+RUN apt -yqq update && \
+    apt -yqq install build-essential && \
     apt -yqq install libffi-dev && \
     apt -yqq install libssl-dev && \
+    # apt -yqq install ffmpeg libsm6 libxext6 && \
     apt -yqq install python3-dev && \
     apt -yqq install python3-pip && \
     apt -yqq install python-is-python3 && \
+    apt -yqq install python3-opencv && \
     apt -yqq install netcat && \
     # apt -yqq install mysql-server && \
     # apt -yqq install default-libmysqlclient-dev && \
@@ -37,15 +40,15 @@ RUN apt -yqq install build-essential && \
     apt -yqq install python3-psycopg2
     
 RUN  pip install --upgrade pip --no-cache-dir && \
-     pip install --upgrade setuptools --no-cache-dir
-    #  pip install loguru --no-cache-dir && \
-    #  pip install cryptography==2.6.1 --no-cache-dir && \
-    #  pip install Pillow --no-cache-dir && \
-    #  pip install easyocr --no-cache-dir && \
-    #  pip install opencv-python --no-cache-dir && \
-    #  pip install pytesseract --no-cache-dir && \
-    #  pip install Image --no-cache-dir && \
-    #  pip install pyyaml --no-cache-dir
+     pip install --upgrade setuptools --no-cache-dir && \
+     pip install loguru --no-cache-dir && \
+     pip install cryptography==2.6.1 --no-cache-dir && \
+     pip install Pillow --no-cache-dir && \
+     pip install easyocr --no-cache-dir && \
+     pip install opencv-python --no-cache-dir && \
+     pip install pytesseract --no-cache-dir && \
+     pip install Image --no-cache-dir && \
+     pip install pyyaml --no-cache-dir
 
 
 

@@ -10,6 +10,11 @@ try:
 except ImportError:
     import Image
 import pytesseract
+
+from easyocr import Reader
+import cv2
+import numpy as np
+
 # 사업자등록증 문자인식 기능 삽입
 # from . import recognize_business_registration
 
@@ -39,13 +44,28 @@ class ImageFile(models.Model):
         start_time = time.time()
 
         img = Image.open(self.image)
+        print("이미지 파일 패쓰",self.image)
+        opencvImage = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+        # easyocr_image = cv2.imread(self.image) # image = None
         # added by phs for windows 10 tesseract-ocr-w64-setup-v5.0.0-alpha.20200328
         # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 
-        ocr_lang = 'kor+eng+jpn'
-        txt = pytesseract.image_to_string(img, lang=ocr_lang)
-        # utf8_txt = bytes(txt, encoding="UTF-8")
-        # txt = pytesseract.image_to_string(img, lang='kor')
+        # ocr_lang = 'kor+eng+jpn'
+        ocr_lang = 'kor+eng'
+        # txt = pytesseract.image_to_string(img, lang=ocr_lang)
+        # # utf8_txt = bytes(txt, encoding="UTF-8")
+        # # txt = pytesseract.image_to_string(img, lang='kor')
+
+        # EasyOCR 적용
+        langs = ['ko', 'en']
+        print("[INFO] OCR'ing input image...")
+        reader = Reader(lang_list=langs, gpu=True)
+        txt_list = reader.readtext(opencvImage, detail = 0)
+
+        txt = ""
+        for text in txt_list:
+            txt += text + " "
+
         execution_time = time.time() - start_time
         ocr_txt = OCRText(image = self, text = txt, lang = ocr_lang, execution_time = execution_time)
         ocr_txt.save()

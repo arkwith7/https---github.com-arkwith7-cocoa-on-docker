@@ -83,7 +83,7 @@
                                                     <tr class="table-primary">
                                                         <th>#</th>
                                                         <th>Image</th>
-                                                        <th>OCR Text</th>
+                                                        <th>File Name</th>
                                                         <th class="text-center">Detail</th>
                                                         <th class="text-center">Delete</th>
                                                     </tr>
@@ -103,12 +103,7 @@
                                                             </div>
                                                         </td>
                                                         {% with image.ocrtext_set.last as ocrtext%}
-                                                        <td>
-                                                            <div class="form-group mb-0">
-                                                                <label class="form-label" for="exampleTextarea">Textarea</label>
-                                                                <textarea class="form-control" id="exampleTextarea" rows="2">{{ocrtext.text|truncatechars:350}}</textarea>
-                                                            </div>
-                                                        </td>
+                                                        <td class="text-left">{{image.image}}</td>
                                                         {% endwith%}
                                                         <td class="text-center">
                                                             <a href="{% url 'detail_view' image.id %}">
