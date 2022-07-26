@@ -70,6 +70,7 @@ instance/
 # media file
 media/*
 staticfiles/*
+apps/static/media/OCR_image/input/*
 
 # Sphinx documentation
 docs/_build/
