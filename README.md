@@ -20,6 +20,11 @@ Uses the default Django development server.
 
     Test it out at [http://localhost:8000](http://localhost:8000). The "app" folder is mounted into the container and your code changes apply automatically.
 
+#### Local Development Environment
+1. ~/cocoa/Dockerfile 우분투 설치 라이브러리 참조
+2. 프로젝트 루트 디렉토리에 파이선 가상환경(~/venv) 설치(python -m venv venv)
+3. vscode 익스텐션 설치
+   - remote wsl, docker, Python, json, jupyter, SQLite 
 ### Production
 
 Uses gunicorn + nginx.

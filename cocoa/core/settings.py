@@ -10,13 +10,15 @@ env = environ.Env(
     DEBUG=(bool, True)
 )
 
+# BASE_DIR :  /usr/src/app
+# CORE_DIR :  /usr/src/app
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # BASE_DIR = Path(__file__).resolve().parent.parent
-print("BASE_DIR : ",BASE_DIR)
+# print("BASE_DIR : ",BASE_DIR)
 # BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print("CORE_DIR : ",CORE_DIR)
+# print("CORE_DIR : ",CORE_DIR)
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
