@@ -12,12 +12,12 @@ pybase64
 pylint
 pytz==2018.9
 autopep8
-opencv-python
-easyocr
-pytesseract
-Pillow
-Image
-pyyaml
+# opencv-python
+# easyocr
+# pytesseract
+# Pillow
+# Image
+# pyyaml
 matplotlib
 # Clova AI Research, NAVER, craft-text-detection 0.0.2
 # craft-text-detection
