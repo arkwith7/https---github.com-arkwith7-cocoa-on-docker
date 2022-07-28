@@ -69,8 +69,8 @@ instance/
 
 # media file
 media/*
-staticfiles/*
-apps/static/media/OCR_image/input/*
+cocoa/staticfiles/
+cocoa/apps/static/media/OCR_image/input/
 
 # Sphinx documentation
 docs/_build/
@@ -107,25 +107,3 @@ ENV/
 # database & logs
 *.db
 *.sqlite3
-cocoa/apps/static/media/OCR_image/input/사업자등록증0_Pty4Xed.jpg
-cocoa/apps/static/media/OCR_image/input/process_UouWf5G.png
-.gitignore
-cocoa/apps/static/media/OCR_image/input/testocr_8Ll688m.png
-cocoa/apps/static/media/OCR_image/input/testocr_99TXyZU.png
-cocoa/apps/static/media/OCR_image/input/testocr_DKvGipC.png
-.gitignore
-cocoa/apps/static/media/OCR_image/input/testocr_Kjf5B7z.png
-.gitignore
-cocoa/apps/static/media/OCR_image/input/testocr_QQpVZQX.png
-.gitignore
-cocoa/apps/static/media/OCR_image/input/testocr_sYhS5Bz.png
-.gitignore
-cocoa/apps/static/media/OCR_image/input/testocr_U4b0C8A.png
-.gitignore
-cocoa/apps/static/media/OCR_image/input/testocr_xk0QyO1.png
-.gitignore
-.gitignore
-cocoa/apps/static/media/OCR_image/input/testocr_zUwzWKn.png
-cocoa/apps/static/media/OCR_image/input/testocr_fb8PstF.png
-cocoa/apps/static/media/OCR_image/input/testocr_eeNSeLr.png
-cocoa/apps/static/media/OCR_image/input/사업자등록증0_cIsFvqf.jpg
