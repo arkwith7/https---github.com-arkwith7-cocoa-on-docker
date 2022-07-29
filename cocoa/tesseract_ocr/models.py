@@ -31,6 +31,7 @@ class ImageFile(models.Model):
 
     name = models.CharField("Name", max_length=100)
     internal_reference = models.CharField("Internal Reference", max_length=100, editable=False)
+    ocr_engine = models.CharField("OCR Engine", max_length=50, default="Tesseract")
     description = models.TextField("Description", blank=True, null=True)
     image = models.ImageField(upload_to="OCR_image/input/", verbose_name="Input Image")
     create_at = models.DateTimeField("Create at", auto_now_add=True)
@@ -42,32 +43,41 @@ class ImageFile(models.Model):
     def execute_and_save_ocr(self):
         import time
         start_time = time.time()
-
+        engine = self.ocr_engine
         img = Image.open(self.image)
         print("이미지 파일 패쓰",self.image)
-        opencvImage = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-        # easyocr_image = cv2.imread(self.image) # image = None
-        # added by phs for windows 10 tesseract-ocr-w64-setup-v5.0.0-alpha.20200328
-        # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
 
-        # ocr_lang = 'kor+eng+jpn'
-        ocr_lang = 'kor+eng'
-        # txt = pytesseract.image_to_string(img, lang=ocr_lang)
-        # # utf8_txt = bytes(txt, encoding="UTF-8")
-        # # txt = pytesseract.image_to_string(img, lang='kor')
-
-        # EasyOCR 적용
-        langs = ['ko', 'en']
         print("[INFO] OCR'ing input image...")
-        reader = Reader(lang_list=langs, gpu=True)
-        txt_list = reader.readtext(opencvImage, detail = 0)
-
         txt = ""
-        for text in txt_list:
-            txt += text + " "
+        ocr_lang = ""
+        if engine == "EasyOCR":
+            opencvImage = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+            # EasyOCR 적용
+            langs = ['ko', 'en']
+            for lang in langs:
+                ocr_lang += lang + ','
+
+            reader = Reader(lang_list=langs, gpu=True)
+            txt_list = reader.readtext(opencvImage, detail = 0, paragraph=True)
+
+            for text in txt_list:
+                txt += text + "\r\n"
+
+        elif engine == "Tesseract":
+            # added by phs for windows 10 tesseract-ocr-w64-setup-v5.0.0-alpha.20200328
+            # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
+
+            # # utf8_txt = bytes(txt, encoding="UTF-8")
+            # # txt = pytesseract.image_to_string(img, lang='kor')            
+            ocr_lang = 'kor+eng'
+            txt = pytesseract.image_to_string(img, lang=ocr_lang)
+            
+
+
+
 
         execution_time = time.time() - start_time
-        ocr_txt = OCRText(image = self, text = txt, lang = ocr_lang, execution_time = execution_time)
+        ocr_txt = OCRText(image = self, text = txt, lang = ocr_lang, ocr_engine = engine, execution_time = execution_time)
         ocr_txt.save()
         # save a text file
         # filename = os.path.abspath(os.path.dirname(__file__))+"/sample.txt"
@@ -108,6 +118,7 @@ class ImageFile(models.Model):
 
 class OCRText(models.Model):
     text = models.TextField("OCR text", blank=True)
+    ocr_engine = models.CharField("OCR Engine", max_length=50, default="Tesseract")
     lang = models.TextField("Language", default="kor+eng")
     execution_time = models.IntegerField("Execution Time", editable=False, null=True);
     image = models.ForeignKey('ImageFile', on_delete=models.CASCADE)

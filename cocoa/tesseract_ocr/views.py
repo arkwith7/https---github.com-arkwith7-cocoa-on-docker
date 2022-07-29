@@ -13,14 +13,22 @@ import ast
 import json
 
 def index(request):
+
+    return render(request, 'dashboard-text-recog.html')
+
+def general_ocr(request):
     data = dict()
 
     image_form = ImageFileForm(request.POST or None, request.FILES or None)
+    # print("image_form : ",image_form)
+    # print("image_form.is_valid():[{}]".format(image_form.is_valid()))
+    # print("image_form.ocr_engine:[{}]".format(image_form.ocr_engine))
     if image_form.is_valid():
         image = image_form.save()
         image.execute_and_save_ocr()
         print("ImageFileModel.id:[{}]".format(image.id))
         print("ImageFileModel.image:[{}]".format(image.image))
+        print("ImageFileModel.ocr_engine:[{}]".format(image.ocr_engine))
         # dictionary for initial data with  
         # field names as keys 
         context ={} 
@@ -43,7 +51,15 @@ def index(request):
     except EmptyPage:
         data['image_list'] = paginator.page(paginator.num_pages)
 
-    return render(request, "index.html", data)
+    return render(request, "general_ocr.html", data)
+
+def general_if(request):
+    return render(request, "general_if.html")
+def general_us(request):
+    return render(request, "general_us.html")
+
+def template_ml(request):
+    return render(request, "template_ml.html")
 
 def about(request):
     return render(request, 'about.html')
@@ -85,7 +101,7 @@ def delete(request, id):
     obj.delete() 
     # after deleting redirect to  
     # home page 
-    return HttpResponseRedirect("/ocr/") 
+    return HttpResponseRedirect("/ocr/general_ocr/") 
 
 def gettext(request):
 

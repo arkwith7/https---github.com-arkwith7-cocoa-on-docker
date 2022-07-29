@@ -2,7 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %} OCR Result {% endblock %}
+{% block title %} General OCR Detail {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
@@ -24,12 +24,12 @@
                         <div class="row align-items-center">
                             <div class="col-md-12">
                                 <div class="page-header-title">
-                                    <h5 class="m-b-10">OCR 결과</h5>
+                                    <h5 class="m-b-10">General OCR</h5>
                                 </div>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="#!">OCR</a></li>
-                                    <li class="breadcrumb-item"><a href="#!">Tesseract</a></li>
+                                    <li class="breadcrumb-item"><a href="/ocr/"><i class="feather icon-home"></i></a></li>
+                                    <li class="breadcrumb-item"><a href="#!">General OCR</a></li>
+                                    <li class="breadcrumb-item"><a href="#!">Extract Data</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h5>OCR 결과</h5>
-                                        <button class="btn btn-primary float-end"><i class="fas fa-list-ul m-r-5"></i><a href="/ocr/" style="color: white">목록</a></button>
+                                        <button class="btn btn-primary float-end"><i class="fas fa-list-ul m-r-5"></i><a href="/ocr/general_ocr/" style="color: white">목록</a></button>
                                     </div>
                                     <div class="card-body">
                                         <textarea class="form-control" id="exampleTextarea"

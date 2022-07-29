@@ -6,7 +6,7 @@ from tesseract_ocr.models import ImageFile
 class ImageFileForm(forms.ModelForm):
     class Meta:
         model = ImageFile
-        fields = ('image', )
+        fields = ('ocr_engine', 'image',  )
 
 # class BusinessRegistrationImageFileForm(forms.ModelForm):
 #     class Meta:

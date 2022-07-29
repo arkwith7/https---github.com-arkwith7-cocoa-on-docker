@@ -19,6 +19,10 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'general_ocr/', views.general_ocr, name='general_ocr'),
+    url(r'general_if/', views.general_if, name='general_if'),
+    url(r'general_us/', views.general_us, name='general_us'),
+    url(r'template_ml/', views.template_ml, name='template_ml'),
     # (?P<id>\d+)/$
     # url(r'detail_view/<id>', views.detail_view, name='detail_view' ), 
     url(r'detail_view/(?P<id>\d+)/$', views.detail_view, name='detail_view' ), 
