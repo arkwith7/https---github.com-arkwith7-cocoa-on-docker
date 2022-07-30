@@ -27,7 +27,7 @@ SECRET_KEY = env('SECRET_KEY', default='S#perS3crEt_007')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = env('DEBUG')
-DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = int(os.environ.get("DEBUG", default=1))
 
 # Assets Management
 ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets') 
@@ -49,7 +49,8 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
 
-    'tesseract_ocr', 
+    't_ocr', 
+    'g_ocr', 
     'apps.home'  # Enable the inner home (home)
 ]
 
@@ -167,7 +168,7 @@ STATICFILES_DIRS = (
 
 
 #############################################################
-MEDIA_URL = '/mediafiles/'
+MEDIA_URL = '/apps/static/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'apps/static/media')
 #############################################################
 

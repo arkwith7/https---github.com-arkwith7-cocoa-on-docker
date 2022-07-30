@@ -2,12 +2,12 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block title %} General OCR Detail {% endblock %}
+{% block title %} General OCR Result {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 
-<link rel="stylesheet" href="{{ ASSETS_ROOT }}/css/tesseract_ocr/bootstrap.min.css">
+<link rel="stylesheet" href="{{ ASSETS_ROOT }}/css/g_ocr/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 
 {% endblock stylesheets %}
@@ -49,8 +49,7 @@
                                         <h5>OCR 대상 이미지팔일</h5>
                                     </div>
                                     <div class="card-body">
-                                        <img src="/static/media/{{data.image}}" alt="Uploaded Image" width="600px"
-                                            style="margin: auto; border-radius: 10px; margin-bottom: 8px" />
+                                        <img src="/static/media/{{data.image}}" alt="Uploaded Image"  width="600px" style="margin: auto; border-radius: 10px; margin-bottom: 8px" />
                                     </div>
                                 </div>
                             </div>
@@ -61,8 +60,9 @@
                                         <button class="btn btn-primary float-end"><i class="fas fa-list-ul m-r-5"></i><a href="/ocr/general_ocr/" style="color: white">목록</a></button>
                                     </div>
                                     <div class="card-body">
-                                        <textarea class="form-control" id="exampleTextarea"
-                                            rows="20">{{data.ocr_text}}</textarea>
+                                        {% with data.ocrtext_set.last as ocrtext%}
+                                        <textarea class="form-control" id="exampleTextarea" rows="20">{{ocrtext.text}}</textarea>
+                                        {% endwith%}
                                     </div>
                                 </div>
                             </div>
@@ -76,9 +76,6 @@
     </div>
 </div>
 <!-- [ Main Content ] end -->
-
-
-
 
 {% endblock content %}
 

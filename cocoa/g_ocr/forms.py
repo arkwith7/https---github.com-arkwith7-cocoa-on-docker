@@ -1,5 +1,5 @@
 from django import forms
-from tesseract_ocr.models import ImageFile
+from g_ocr.models import ImageFile
 # , BusinessRegistrationImageFile
 
 

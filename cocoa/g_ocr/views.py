@@ -5,9 +5,9 @@ import os
 from django.http import HttpResponse
 from django.template import loader
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from tesseract_ocr.forms import ImageFileForm
+from g_ocr.forms import ImageFileForm
 # , BusinessRegistrationImageFileForm
-from tesseract_ocr.models import ImageFile, OCRText
+from g_ocr.models import ImageFile, OCRText
 # , BusinessRegistrationImageFile, BusinessRegistrationOCRText
 import ast
 import json
@@ -17,13 +17,14 @@ def index(request):
     return render(request, 'dashboard-text-recog.html')
 
 def general_ocr(request):
+    # print("general_ocr list start...")
     data = dict()
-
     image_form = ImageFileForm(request.POST or None, request.FILES or None)
     # print("image_form : ",image_form)
     # print("image_form.is_valid():[{}]".format(image_form.is_valid()))
     # print("image_form.ocr_engine:[{}]".format(image_form.ocr_engine))
     if image_form.is_valid():
+        # print("general_ocr enroll start...")
         image = image_form.save()
         image.execute_and_save_ocr()
         print("ImageFileModel.id:[{}]".format(image.id))

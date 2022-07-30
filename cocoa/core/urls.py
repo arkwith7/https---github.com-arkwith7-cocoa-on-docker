@@ -15,7 +15,8 @@ urlpatterns = [
     path("", include("apps.authentication.urls")), # Auth routes - login / register
 
     # ADD NEW Routes HERE
-    path("ocr/", include('tesseract_ocr.urls')),
+    path("ocr/", include('g_ocr.urls')),
+    path("t_ocr/", include('t_ocr.urls')),
 
     # Leave `Home.Urls` as last the last line
     path("", include("apps.home.urls"))
