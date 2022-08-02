@@ -131,21 +131,19 @@
                                         <th scope="row" style="color:tomato;font-family: 'Poppins', sans-serif;">
                                             {{image.id}}</th>
                                         <td>
-                                            <!--
                                                 <div class="clickable_img"
                                                     onclick="show_img_details('/static/media/{{image.image}}')">
                                                     <img class="img-fluid img-thumbnail "
                                                         src="/static/media/{{image.image}}" alt="{{image.image}}"
                                                         width="100" />
                                                 </div>
-                                                -->
                                         </td>
                                         {% with image.ocrtext_set.last as ocrtext%}
-                                        <td class="text-left"></td>
-                                        <td class="text-left"></td>
+                                        <td class="text-left">{{image.biz_process}}</td>
+                                        <td class="text-left">{{image.doc_name}}</td>
                                         {% endwith%}
                                         <td class="text-center">
-                                            <a href="{% url 'detail_view' image.id %}">
+                                            <a href="{% url 'template:t_ocr_view' image.id %}">
                                                 <button type="button" class="btn btn-btn-outline-secondary">
                                                     Detail
                                                     <!-- <i class='fab fa-edit'></i> -->
@@ -153,7 +151,7 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{% url 'delete' image.id %}">
+                                            <a href="{% url 'template:t_ocr_delete' image.id %}">
                                                 <button type="button" class="btn btn-btn-outline-secondary">
                                                     Delete
                                                     <!-- <i class="fab fa-trash"></i> -->

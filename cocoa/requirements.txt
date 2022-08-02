@@ -2,6 +2,7 @@ loguru
 cryptography==2.6.1
 Django==3.2.6
 django-environ
+Jinja2
 whitenoise
 gunicorn==20.1.0
 psycopg2-binary==2.9.1

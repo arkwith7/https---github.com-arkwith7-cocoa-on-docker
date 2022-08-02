@@ -37,7 +37,7 @@ class ImageFile(models.Model):
     doc_name = models.CharField("Document Name", max_length=200, null=True)
     ocr_engine = models.CharField("OCR Engine", max_length=50, default="Tesseract")
     description = models.TextField("Description", blank=True, null=True)
-    image = models.ImageField(upload_to="OCR_image/input/", verbose_name="Input Image")
+    image = models.ImageField(upload_to="", verbose_name="Input Image")
     create_at = models.DateTimeField("Create at", auto_now_add=True)
     updated_at = models.DateTimeField("Update at", auto_now=True)
 
@@ -47,6 +47,8 @@ class ImageFile(models.Model):
     def execute_and_save_ocr(self):
         import time
         start_time = time.time()
+        process_name = self.biz_process
+        document_name = self.doc_name
         engine = self.ocr_engine
         img = Image.open(self.image)
         print("이미지 파일 패쓰",self.image)
@@ -81,7 +83,7 @@ class ImageFile(models.Model):
 
 
         execution_time = time.time() - start_time
-        ocr_txt = OCRText(image = self, text = txt, lang = ocr_lang, ocr_engine = engine, execution_time = execution_time)
+        ocr_txt = OCRText(image = self, text = txt, biz_process=process_name, doc_name=document_name, lang = ocr_lang, ocr_engine = engine, execution_time = execution_time)
         ocr_txt.save()
         # save a text file
         # filename = os.path.abspath(os.path.dirname(__file__))+"/sample.txt"
@@ -122,6 +124,8 @@ class ImageFile(models.Model):
 
 class OCRText(models.Model):
     text = models.TextField("OCR text", blank=True)
+    biz_process = models.CharField("Business Process", max_length=200, null=True)
+    doc_name = models.CharField("Document Name", max_length=200, null=True)
     ocr_engine = models.CharField("OCR Engine", max_length=50, default="Tesseract")
     lang = models.TextField("Language", default="kor+eng")
     execution_time = models.IntegerField("Execution Time", editable=False, null=True);

@@ -2,7 +2,7 @@ from django import template
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect # added
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
@@ -10,10 +10,16 @@ import os
 import shutil
 
 from t_ocr.forms import ImageFileForm
-from t_ocr.models import ImageFile
+from t_ocr.models import ImageFile, OCRText
 
 config = dict()
 config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+config["IMAGES"] = 'images'
+config["LABELS"] = []
+config["HEAD"] = 0
+config["OUT"] = "out.csv"
+with open("out.csv",'w') as f:
+    f.write("image,id,name,xMin,xMax,yMin,yMax\n")
 
 # Create your views here.
 def index(request):
@@ -90,6 +96,55 @@ def tagger(request):
     # print(not_end)
     # return render_template('tagger.html', not_end=not_end, directory=directory, image=image, labels=labels, head=app.config["HEAD"] + 1, len=len(app.config["FILES"]))
     return render(request, "tagger.html", data)
+
+def annotation(request):
+    config["FILES"] = 'testocr_ryhJYwx.png'
+    directory = config["IMAGES"]
+    image = config["FILES"][config["HEAD"]]
+    labels = config["LABELS"]
+    not_end = not(config["HEAD"] == len(config["FILES"]) - 1)
+    print(not_end)
+
+    return render(request, "tagger.html", config)
+
+# pass id attribute from urls 
+def t_ocr_view(request, id): 
+    # dictionary for initial data with  
+    # field names as keys 
+    print("....start detail_view")
+    context ={}   
+    # add the dictionary during initialization
+    context["data"] = OCRText.objects.get(id = id)
+    print("context[data]:[{}]".format(context["data"]))
+    print("context[data.image]:[{}]".format(context["data"].image))
+    print("context[data.image.id]:[{}]".format(context["data"].image.id))
+    print("context[data.image.image]:[{}]".format(context["data"].image.image))
+    print("context[data.lang]:[{}]".format(context["data"].lang))
+    print("context[data.text]:[{}]".format(context["data"].text))
+    # save a text file
+    # filename = os.getcwd()+"/sample.txt"
+    # filename = os.path.abspath(os.path.dirname(__file__))+"/sample.txt"
+    # utf8_txt = bytes(context["data"].text, encoding="UTF-8")
+    # print("sample.txt : ", filename)
+    # f = open(filename, "a")
+    # f.truncate(0)
+    # f.write(context["data"].text).encode('utf-8').strip()
+    # f.close()
+    context["data"] ={
+        "image" : context["data"].image.image,
+        "ocr_text" : context["data"].text
+    }   
+          
+    return render(request, 'detail.html', context) 
+
+def t_ocr_delete(request, id):
+    # fetch the object related to passed id 
+    obj = get_object_or_404(ImageFile, id = id) 
+    # delete object 
+    obj.delete() 
+    # after deleting redirect to  
+    # home page 
+    return HttpResponseRedirect("/t_ocr/") 
 
 def pages(request):
     context = {}
