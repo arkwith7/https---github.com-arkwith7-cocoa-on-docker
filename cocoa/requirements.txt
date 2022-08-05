@@ -13,6 +13,7 @@ pybase64
 pylint
 pytz==2018.9
 autopep8
+pdf2image
 # opencv-python
 # easyocr
 # pytesseract

@@ -46,6 +46,7 @@ RUN apt-get update && \
     ghostscript \
     imagemagick \
     python3-psycopg2 \
+    poppler-utils \
     unzip \
     wget \
     git \
