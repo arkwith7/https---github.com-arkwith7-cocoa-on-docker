@@ -59,3 +59,16 @@ git remote add origin "url"
 git push --force --set-upstream origin master
 ```
 (이를 통해 git pull 없이 강제로 병합)
+
+## Installation
+1. Modify configuration:
+- Add domains and email addresses to init-letsencrypt.sh
+- Replace all occurrences of example.org with primary domain (the first one you added to init-letsencrypt.sh) in data/nginx/app.conf
+
+2. Run the init script:
+
+        ./init-letsencrypt.sh
+
+3. Run the server:
+
+        docker-compose up
