@@ -71,6 +71,7 @@ instance/
 media/*
 cocoa/staticfiles/
 cocoa/apps/static/media/OCR_image/input/
+cocoa/apps/static/media/
 
 # Sphinx documentation
 docs/_build/

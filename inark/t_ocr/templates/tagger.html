@@ -79,32 +79,31 @@
                               <div class="card">
                                   <div class="card-header">
                                       <h5>Manage Labels</h5>
-                                  </div>
+                                        <span class="counter"><b>{{ head }} / {{ len }}</b></span>
+                                        <span class="image-name">{{files}}</span>
+                                        {% if not_end %}
+                                          <a href="/next" class="btn btn-primary" style="float:right; font-size:18px;" type="button">
+                                            <span class="glyphicon glyphicon-arrow-right"></span>
+                                          </a>
+                                        {% else %}
+                                          <a href="/next" class="btn btn-primary" style="float:right; font-size:18px;" type="button">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                          </a>
+                                        {% endif %}
+                                        </div>
                                   <div class="card-body">
                                       <div class="container">
                                           <div class="row">
                                               <div class="col-md-7">
 
                                                           <div id="content" class="container content">
-                                                            <div class="row">
-                                                            <span class="counter"><b>{{ head }} / {{ len }}</b></span>
-                                                            <span class="image-name">{{image}}</span>
-                                                            {% if not_end %}
-                                                              <a href="/next" class="btn btn-primary" style="float:right; font-size:18px;" type="button">
-                                                                <span class="glyphicon glyphicon-arrow-right"></span>
-                                                              </a>
-                                                            {% else %}
-                                                              <a href="/next" class="btn btn-primary" style="float:right; font-size:18px;" type="button">
-                                                                <span class="glyphicon glyphicon-ok"></span>
-                                                              </a>
-                                                            {% endif %}
-                                                            </div>
+
                                                             <div class="content-image">
                                                                 <canvas id="canvas" style="width:100%; height:80%; margin: 0; padding: 0;"></canvas>
                                                             </div>
                                                             
                                                             <script>
-                                                              var labels = {{ labels|tojson|safe }};
+                                                              var labels = {{ labels }};
                                                               var c = document.getElementById("canvas");
                                                               var ctx = c.getContext("2d");
                                                               var drawLabels = function(id, xMin, xMax, yMin, yMax) {
@@ -131,7 +130,7 @@
                                                                 }
                                                               };
                                                               image.style.display="block";
-                                                              image.src = "image/{{ image }}";
+                                                              image.src = "/static/media/{{ files }}";
                                                         
                                                             // this flage is true when the user is dragging the mouse
                                                             var isDown=false;

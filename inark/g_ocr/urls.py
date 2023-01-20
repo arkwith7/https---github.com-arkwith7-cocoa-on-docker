@@ -14,22 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.urls import path
-from django.conf.urls import url
+from django.urls import path
 from . import views
+# app_name = 'general1' 
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'general_ocr/', views.general_ocr, name='general_ocr'),
-    url(r'general_if/', views.general_if, name='general_if'),
-    url(r'general_us/', views.general_us, name='general_us'),
-    url(r'template_ml/', views.template_ml, name='template_ml'),
+    path('', views.index, name='index'),
+    path('general_ocr/', views.general_ocr, name='general_ocr'),
+    path('general_if/', views.general_if, name='general_if'),
+    path('general_us/', views.general_us, name='general_us'),
+    path('template_ml/', views.template_ml, name='template_ml'),
     # (?P<id>\d+)/$
     # url(r'detail_view/<id>', views.detail_view, name='detail_view' ), 
-    url(r'detail_view/(?P<id>\d+)/$', views.detail_view, name='detail_view' ), 
+    path('detail_view/<id>', views.detail_view, name='detail_view' ), 
     # url(r'delete/<id>', views.delete, name='delete' ), 
-    url(r'delete/(?P<id>\d+)/$', views.delete, name='delete' ), 
-    url(r'about', views.about, name='about'),
-    url(r'gettext', views.gettext, name='gettext'),
+    path('delete/(<id>', views.delete, name='delete' ), 
+    path('about', views.about, name='about'),
+    path('gettext', views.gettext, name='gettext'),
     # url(r'business_registration', views.business_registration, name='business_registration'),
     # url(r'detail_view2/(?P<id>\d+)/$', views.detail_view2, name='detail_view2' ), 
     # url(r'delete2/(?P<id>\d+)/$', views.delete2, name='delete2' ), 
