@@ -2,9 +2,24 @@
 FROM ubuntu:20.04
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+# create directory for the app user
+RUN mkdir -p /home/app
+
+# create the app user
+# RUN groupadd app && useradd -g app app
+# RUN useradd -ms /bin/bash app
 # set work directory
-RUN mkdir  /usr/src/app
-WORKDIR  /usr/src/app
+# RUN mkdir  /usr/src/app
+# WORKDIR  /usr/src/app
+# create the appropriate directories
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+ENV STATICFILE_HOME=/home/app/web/inark
+RUN mkdir $APP_HOME
+RUN mkdir $STATICFILE_HOME
+RUN mkdir $APP_HOME/staticfiles
+RUN mkdir $APP_HOME/mediafiles
+WORKDIR $APP_HOME
 
 # if you forked EasyOCR, you can pass in your own GitHub username to use your fork
 # i.e. gh_username=myname
@@ -106,14 +121,17 @@ RUN pip install --no-cache-dir  -r requirements.txt
 
 # copy entrypoint.sh
 COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
-RUN chmod +x /usr/src/app/entrypoint.sh
+RUN sed -i 's/\r$//g' $APP_HOME/entrypoint.sh
+RUN chmod +x $APP_HOME/entrypoint.sh
 
 # copy project
-COPY . .
+COPY . $APP_HOME
 
-# python3를 python으로 alias 설정
-# RUN alias python='python3'
+# chown all the files to the app user
+# RUN chown -R app:app $APP_HOME
+
+# change to the app user
+# USER app
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]

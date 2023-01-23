@@ -34,7 +34,7 @@ ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
 print("ASSETS_ROOT:",ASSETS_ROOT)
 
 # load production server from .env
-ALLOWED_HOSTS        = ['localhost', '127.0.0.1', 'arkwith.com', 'www.arkwith.com',              env('SERVER', default='127.0.0.1') ]
+ALLOWED_HOSTS        = ['localhost', '127.0.0.1', 'www.arkwith.com', 'arkwith.com',              env('SERVER', default='127.0.0.1') ]
 CSRF_TRUSTED_ORIGINS = ['http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
 
 # Application definition
@@ -159,9 +159,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-# STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
-STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
+print("STATIC_ROOT=",STATIC_ROOT)
+# STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
@@ -171,8 +172,8 @@ STATICFILES_DIRS = (
 
 #############################################################
 MEDIA_URL = "/media/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'apps/static/media')
-MEDIA_ROOT = BASE_DIR / "mediafiles"
+MEDIA_ROOT = os.path.join(CORE_DIR, 'mediafiles')
+# MEDIA_ROOT = BASE_DIR / "mediafiles"
 #############################################################
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
