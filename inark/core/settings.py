@@ -35,7 +35,9 @@ print("ASSETS_ROOT:",ASSETS_ROOT)
 
 # load production server from .env
 ALLOWED_HOSTS        = ['localhost', '127.0.0.1', 'www.arkwith.com', 'arkwith.com',              env('SERVER', default='127.0.0.1') ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
+print("ALLOWED_HOSTS=",ALLOWED_HOSTS)
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
 
 # Application definition
 
