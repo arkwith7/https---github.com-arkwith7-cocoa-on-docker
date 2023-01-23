@@ -3,8 +3,12 @@ FROM ubuntu:20.04
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # set work directory
-RUN mkdir  /usr/src/app
-WORKDIR  /usr/src/app
+ENV HOME=/home/app
+ENV APP_HOME=/home/app/web
+RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME/staticfiles
+RUN mkdir $APP_HOME/mediafiles
+WORKDIR $APP_HOME
 
 # if you forked EasyOCR, you can pass in your own GitHub username to use your fork
 # i.e. gh_username=myname
@@ -106,8 +110,8 @@ RUN pip install --no-cache-dir  -r requirements.txt
 
 # copy entrypoint.sh
 COPY ./entrypoint.sh .
-RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
-RUN chmod +x /usr/src/app/entrypoint.sh
+RUN sed -i 's/\r$//g' /home/app/web/entrypoint.sh
+RUN chmod +x /home/app/web/entrypoint.sh
 
 # copy project
 COPY . .
@@ -116,4 +120,4 @@ COPY . .
 # RUN alias python='python3'
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]

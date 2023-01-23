@@ -72,3 +72,5 @@ git push --force --set-upstream origin master
 3. Run the server:
 
         docker-compose up
+
+### [Dockerizing Django with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) 
