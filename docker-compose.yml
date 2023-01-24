@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  web:
+  app:
     build:
       context: ./inark
       dockerfile: Dockerfile.prod
@@ -22,7 +22,7 @@ services:
     env_file:
       - ./.env.prod.db
 
-  nginx:
+  app-nginx:
     image: nginx:1.15-alpine
     restart: unless-stopped
     volumes:
@@ -36,7 +36,7 @@ services:
       - "443:443"
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     depends_on:
-      - web    
+      - app    
 
   certbot:
     image: certbot/certbot
