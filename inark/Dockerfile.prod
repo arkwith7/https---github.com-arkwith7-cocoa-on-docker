@@ -2,6 +2,9 @@
 FROM ubuntu:20.04
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+# create directory for the app user
+RUN mkdir -p /home/app
+
 # set work directory
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
