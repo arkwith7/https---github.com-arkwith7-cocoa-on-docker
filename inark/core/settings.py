@@ -34,8 +34,10 @@ ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
 print("ASSETS_ROOT:",ASSETS_ROOT)
 
 # load production server from .env
-ALLOWED_HOSTS        = ['localhost', '127.0.0.1', 'www.arkwith.com', 'arkwith.com',              env('SERVER', default='127.0.0.1') ]
+# ALLOWED_HOSTS        = ['localhost', '127.0.0.1', 'www.arkwith.com', 'arkwith.com',              env('SERVER', default='127.0.0.1') ]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 print("ALLOWED_HOSTS=",ALLOWED_HOSTS)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
 
@@ -95,35 +97,35 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-#         "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
-#         "USER": os.environ.get("SQL_USER", "user"),
-#         "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-#         "HOST": os.environ.get("SQL_HOST", "localhost"),
-#         "PORT": os.environ.get("SQL_PORT", "5432"),
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
+    }
+}
 
-if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
-    DATABASES = { 
-      'default': {
-        'ENGINE'  : 'django.db.backends.mysql', 
-        'NAME'    : os.getenv('DB_NAME'     , 'appseed_db'),
-        'USER'    : os.getenv('DB_USERNAME' , 'appseed_db_usr'),
-        'PASSWORD': os.getenv('DB_PASS'     , 'pass'),
-        'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
-        'PORT'    : os.getenv('DB_PORT'     , 3306),
-        }, 
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }
-    }
+# if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
+#     DATABASES = { 
+#       'default': {
+#         'ENGINE'  : 'django.db.backends.mysql', 
+#         'NAME'    : os.getenv('DB_NAME'     , 'appseed_db'),
+#         'USER'    : os.getenv('DB_USERNAME' , 'appseed_db_usr'),
+#         'PASSWORD': os.getenv('DB_PASS'     , 'pass'),
+#         'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
+#         'PORT'    : os.getenv('DB_PORT'     , 3306),
+#         }, 
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': 'db.sqlite3',
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
