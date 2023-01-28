@@ -19,7 +19,7 @@ services:
   db:
     image: postgres:13.0-alpine
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=ark_ocr
       - POSTGRES_PASSWORD=ark_ocr

@@ -10,11 +10,13 @@ from django.template import loader
 from django.urls import reverse
 
 
-@login_required(login_url="/login/")
+# @login_required(login_url="/login/")
 def index(request):
     context = {'segment': 'index'}
 
-    html_template = loader.get_template('home/index.html')
+    # html_template = loader.get_template('home/index.html')
+    html_template = loader.get_template('home/pages-landingpage.html')
+
     return HttpResponse(html_template.render(context, request))
 
 

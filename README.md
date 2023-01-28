@@ -69,42 +69,54 @@ git push --force --set-upstream origin master
 
         sudo ./init-letsencrypt.sh
 
-3. modify app.conf include ssl config
+3. edit app.conf include ssl config
 
         docker-compose down -v
 
         edit app.conf
-        ```
-server {
-    server_name arkwith.com;
-    listen 443 ssl;
-    ssl_certificate /etc/letsencrypt/live/arkwith.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/arkwith.com/privkey.pem;
-}
 
-server {
-    listen 443 ssl;
-    server_name www.arkwith.com;
-    ssl_certificate /etc/letsencrypt/live/arkwith.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/arkwith.com/privkey.pem;
+        upstream core {
+        ip_hash;
+        server app:8000;
+        }
 
-    location / {
-        proxy_pass http://core;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_redirect off;
-        client_max_body_size 100M;
-    }
+        server {
+            listen 80;
+            server_name arkwith.com www.arkwith.com;
+            return 301 https://arkwith.com$request_uri;
+        }
 
-    location /static/ {
-        alias /home/app/web/staticfiles/;
-    }
+        server {
+            listen 443 ssl http2;
+            server_name www.arkwith.com;
+            ssl_certificate /etc/letsencrypt/live/arkwith.com/fullchain.pem;
+            ssl_certificate_key /etc/letsencrypt/live/arkwith.com/privkey.pem;
+            return 301 https://arkwith.com$request_uri;
+        }
 
-    location /media/ {
-        alias /home/app/web/mediafiles/;
-    }
-}
-        ```
+        server {
+            listen 443 ssl http2;
+            server_name arkwith.com;
+            ssl_certificate /etc/letsencrypt/live/arkwith.com/fullchain.pem;
+            ssl_certificate_key /etc/letsencrypt/live/arkwith.com/privkey.pem;
+
+            location / {
+                proxy_pass http://core;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $host;
+                proxy_redirect off;
+                client_max_body_size 100M;
+            }
+
+            location /static/ {
+                alias /home/app/web/staticfiles/;
+            }
+
+            location /media/ {
+                alias /home/app/web/mediafiles/;
+            }
+        }
+
         sudo ./init-letsencrypt.sh
 
 4. Run the server:
@@ -112,4 +124,13 @@ server {
         docker-compose build
         docker-compose up
 
-### [Dockerizing Django with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) 
+## 개발환경 웹 및 데이터베이스 설정
+1. docker db container 초기화(최초 실행시)
+        docker-compose -f docker-compose.dev.yml exec web python manage.py migrate
+2. docker db container 테이블 추가 또는 변경시
+        docker-compose -f docker-compose.dev.yml exec web python manage.py makemigrations
+3. docker web container에서 static 컨텐츠 배포
+        docker-compose -f docker-compose.dev.yml exec web python manage.py collectstatic
+
+### Reference
+- [Dockerizing Django with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) 
