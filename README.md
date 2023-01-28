@@ -67,10 +67,49 @@ git push --force --set-upstream origin master
 
 2. Run the init script:
 
-        ./init-letsencrypt.sh
+        sudo ./init-letsencrypt.sh
 
-3. Run the server:
+3. modify app.conf include ssl config
 
+        docker-compose down -v
+
+        edit app.conf
+        ```
+server {
+    server_name arkwith.com;
+    listen 443 ssl;
+    ssl_certificate /etc/letsencrypt/live/arkwith.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/arkwith.com/privkey.pem;
+}
+
+server {
+    listen 443 ssl;
+    server_name www.arkwith.com;
+    ssl_certificate /etc/letsencrypt/live/arkwith.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/arkwith.com/privkey.pem;
+
+    location / {
+        proxy_pass http://core;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_redirect off;
+        client_max_body_size 100M;
+    }
+
+    location /static/ {
+        alias /home/app/web/staticfiles/;
+    }
+
+    location /media/ {
+        alias /home/app/web/mediafiles/;
+    }
+}
+        ```
+        sudo ./init-letsencrypt.sh
+
+4. Run the server:
+
+        docker-compose build
         docker-compose up
 
 ### [Dockerizing Django with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) 
